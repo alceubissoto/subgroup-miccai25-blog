@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Subgroup Discovery Explorer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fafbfc;
+      color: #333;
+      line-height: 1.7;
+      padding: 20px;
+    }
+    .image-block {
+      max-width: 350px;
+      margin: 30px auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .blog-content {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .authors-bar {
+      color: #555;
+      font-size: 0.95em;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .authors-bar sup {
+      font-size: 0.75em;
+    }
+    .intro-text, .guide-text {
+      margin-bottom: 1.8em;
+      font-size: 1em;
+    }
+    h1, h3 {
+      color: #112A46;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 16px;
+    }
+    h3 {
+      margin-top: 40px;
+      margin-bottom: 16px;
+      font-size: 1.4em;
+      border-bottom: 2px solid #e6e6e6;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+    a.button-link {
+      display: inline-block;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      padding: 8px 16px;
+      background-color: #0065bd;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    a.button-link:hover {
+      background-color: #0056a1;
+    }
+    @media (max-width: 768px) {
+      .blog-content {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blog-content">
+    <h1>Subgroup Performance Analysis in Hidden Stratifications</h1>
+    <div style="text-align:center;">
+      <a href='https://arxiv.org/pdf/2503.10382' target='_blank' class="button-link">View Paper</a>
+    </div>
+
+<div class="authors-bar">
+  Alceu Bissoto<sup>1,2</sup>, Trung-Dung Hoang<sup>1,2</sup>, Tim Flühmann<sup>1,2</sup>, Susu Sun<sup>3</sup>, Christian F Baumgartner<sup>3,4</sup>, Lisa M Koch<sup>1,2</sup>
+  <br>
+  <span style="font-size:0.9em; color:#777;">
+  <sup>1</sup> Department of Diabetes, Endocrinology, Nutritional Medicine and Metabolism UDEM, Inselspital, Bern University Hospital, University of Bern, Switzerland<br>
+  <sup>2</sup> Diabetes Center Berne, Switzerland<br>
+  <sup>3</sup> Cluster of Excellence: Machine Learning - New Perspectives for Science, University of Tübingen, Germany<br>
+  <sup>4</sup> Faculty of Health Sciences and Medicine, University of Lucerne, Switzerland
+  </span>
+</div>
+
+<h1> Does current AI evaluations capture the relevant characteristics in medical imaging?</h1>
+
+<p>Traditional subgroup analysis, a common practice in medical research, often falls short when evaluating deep learning models for medical imaging. The metadata typically used—like patient demographics or image characteristics—frequently fails to identify the nuanced variations that truly affect AI performance.</p>
+
+<h2>Why does this matter?</h2>
+
+<p>When assessing AI models, results are usually reported as averages across entire datasets. Although useful, this practice masks significant performance variations among specific groups. Clinical trials and medical AI studies often stratify results by demographic attributes like age, sex, or ethnicity, but these standard metadata categories rarely capture the subtle yet critical variations in medical images.</p>
+
+<p>Our latest research introduces an innovative approach: subgroup discovery methods. These methods uncover hidden patterns and systematic groupings beyond traditional metadata, providing deeper and more meaningful insights into AI model performance.</p>
+
+
+<img src="{{ url_for('static', filename='demo_explanation.png') }}" class="image-block" alt="Explanation">
+
+
+<h3>Interactive Exploration: Unveiling Hidden Patterns</h3>
+
+<p>Engage directly with our <strong>interactive visualization</strong>. Select different patient attributes and discovered subgroups, calculate their specific AI model performance, and view illustrative examples. How do these subgroups perform compared to overall results? Can you pinpoint why certain groups perform differently—perhaps due to imaging artifacts, distinct visual features, or specific medical contexts?</p>
+
+<div class="guide-text">
+  Explore our interactive visualization by selecting patient attributes to define subgroups and examine specific model performances. How do these subgroups compare to overall performance? Can you identify why certain groups differ—due to artifacts, visual features, or medical context?
+</div>
+{{ bokeh_script|safe }}
+
+<h3>Key Findings from Our Study</h3>
+
+<p>Our evaluation focused on two richly annotated medical imaging datasets: chest X-rays in <strong>CheXpertPlus</strong> and skin lesions in <strong>SLICE3D</strong>. The results were striking—subgroups discovered directly from data revealed significantly larger performance gaps compared to traditional metadata-based groups. We invite you to personally explore these metadata and newly discovered subgroups in our visualization (Hint: Don't miss subgroup 8!).</p>
+
+<p>Notably, the discovered subgroups often didn’t correspond closely with patient demographics. Instead, they consistently aligned with meaningful visual features, such as lesion size and color in skin images.</p>
+
+<h3>Implications for Real-World AI Deployment</h3>
+
+<p>Given these insights, we argue that subgroup discovery is critical for robust AI model evaluation. It should complement traditional subgroup analysis, serving as an essential performance-monitoring tool during real-world validation and deployment of AI systems. Adopting subgroup discovery can significantly improve transparency, fairness, and reliability in medical AI.</p>
+
+</div>
+</body>
+</html>
