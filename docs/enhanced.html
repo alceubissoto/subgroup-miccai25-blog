@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subgroup Performance Analysis in Hidden Stratifications - MICCAI 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafbfc;
+        }
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.3em;
+            margin: 0 0 30px 0;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+        .hero-buttons {
+            margin-top: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 0 10px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+        .authors {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .app-section {
+            background: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .app-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #112A46;
+        }
+        .app-container {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 1400px;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 40px 20px;
+            text-align: center;
+            color: #666;
+        }
+        .footer-links {
+            margin-top: 20px;
+        }
+        .footer-links a {
+            color: #0065bd;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2em; }
+            .hero p { font-size: 1.1em; }
+            .app-container { height: 600px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>Subgroup Performance Analysis in Hidden Stratifications</h1>
+        <p>Unveiling hidden patterns in AI model performance through subgroup discovery methods. Explore how traditional metadata analysis falls short and discover new approaches for robust AI evaluation in medical imaging.</p>
+        <div class="hero-buttons">
+            <a href="#interactive-app" class="btn">🔬 Explore Interactive App</a>
+            <a href="https://arxiv.org/pdf/2503.10382" target="_blank" class="btn">📄 Read Paper</a>
+        </div>
+    </section>
+
+    <section class="authors">
+        <strong>Alceu Bissoto¹'², Trung-Dung Hoang¹'², Tim Flühmann¹'², Susu Sun³, Christian F Baumgartner³'⁴, Lisa M Koch¹'²</strong><br>
+        <small>
+            ¹ UDEM, Inselspital, University of Bern, Switzerland | ² Diabetes Center Berne, Switzerland<br>
+            ³ University of Tübingen, Germany | ⁴ University of Lucerne, Switzerland
+        </small>
+    </section>
+
+    <section class="app-section" id="interactive-app">
+        <h2>🎯 Interactive Exploration</h2>
+        <p>Engage directly with our interactive visualization. Select different patient attributes and discovered subgroups, analyze their specific AI model performance, and view representative medical images.</p>
+        
+        <iframe 
+            src="https://your-app-name.streamlit.app/?embed=true" 
+            class="app-container"
+            frameborder="0">
+        </iframe>
+        
+        <p><em>💡 Hint: Don't miss exploring subgroups 5 and 10 to see striking performance differences!</em></p>
+    </section>
+
+    <footer class="footer">
+        <h3>🔍 Key Findings</h3>
+        <p>Our evaluation on CheXpertPlus and SLICE3D datasets revealed that subgroups discovered directly from data showed significantly larger performance gaps compared to traditional metadata-based groups. The discovered subgroups often aligned with meaningful visual features rather than patient demographics.</p>
+        
+        <div class="footer-links">
+            <a href="https://arxiv.org/pdf/2503.10382" target="_blank">📄 Paper</a>
+            <a href="https://github.com/alceubissoto/subgroup-miccai25-blog" target="_blank">💻 Code</a>
+            <a href="https://your-app-name.streamlit.app" target="_blank">🚀 Full App</a>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.85em;">
+            © 2025 MICCAI Subgroup Analysis Project | Built with ❤️ for transparent AI evaluation
+        </p>
+    </footer>
+</body>
+</html>
