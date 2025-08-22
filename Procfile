@@ -1,0 +1,1 @@
+web: streamlit run streamlit_native.py --server.port=$PORT --server.address=0.0.0.0
