@@ -461,9 +461,9 @@ def main():
     
     st.markdown("""
     <div class="instructions">
-        <strong>💡 How to explore:</strong> Select different patient attributes from the sidebar 
-        (demographics, clinical conditions, or discovered subgroups). Use the filter to focus on specific values, 
-        then click "Analyze Performance" to reveal metrics and view representative medical images from that subgroup.
+        <strong>💡 How to explore:</strong> We are investigating a model trained for **cardiomegaly detection** on chest X-rays. 
+        Select different patient attributes from the sidebar (demographics, clinical conditions, or discovered subgroups). 
+        Use the filter to focus on specific values to reveal performance metrics and view representative medical images from that subgroup.
     </div>
     """, unsafe_allow_html=True)
     
@@ -474,13 +474,6 @@ def main():
         st.error("Could not load data. Please check that the data files exist in the static/ directory.")
         st.stop()
     
-    # Debug: Show available columns (collapsible)
-    with st.expander("🔍 Debug: Available Data Columns"):
-        st.write("**Columns in dataset:**")
-        st.write(list(df.columns))
-        st.write(f"**Shape:** {df.shape}")
-        st.write("**Sample data:**")
-        st.dataframe(df.head())
     
     # Smaller sidebar controls
     with st.sidebar:
@@ -495,7 +488,6 @@ def main():
             "Race": ["race"], 
             "Support Devices": ["Support Devices", "support_devices"],
             "Lung Lesion": ["Lung Lesion", "lung_lesion"],
-            "Cardiomegaly": ["Cardiomegaly", "cardiomegaly"],
             "View Type": ["frontal_lateral", "view_type"],
             "Discovered Subgroups": ["discovered_subgroup_idx", "subgroup_idx", "subgroup"]
         }
@@ -532,9 +524,9 @@ def main():
     with st.expander("💡 Tips for Exploration"):
         st.markdown("""
         **Try these explorations:**
-        - **Discovered Subgroups**: Explore subgroups 0-14, especially subgroup 10 which shows interesting patterns
+        - **Discovered Subgroups**: Explore subgroups 0-14, especially subgroups 5 and 10 which show interesting patterns
         - **Demographics**: Compare performance across different sex and race categories
-        - **Clinical attributes**: Check how Support Devices, Lung Lesion, and Cardiomegaly affect performance
+        - **Clinical attributes**: Check how Support Devices and Lung Lesion affect performance
         - **View types**: Compare frontal vs lateral X-ray performance
         
         **What to look for:**
@@ -593,7 +585,7 @@ def main():
     st.header("🔍 Key Findings from Our Study")
     
     st.markdown("""
-    Our evaluation focused on two richly annotated medical imaging datasets: chest X-rays in **CheXpertPlus** and skin lesions in **SLICE3D**. The results were striking—subgroups discovered directly from data revealed significantly larger performance gaps compared to traditional metadata-based groups. We invite you to personally explore these metadata and newly discovered subgroups in our visualization (**Hint: Don't miss subgroup 8!**).
+    Our evaluation focused on two richly annotated medical imaging datasets: chest X-rays in **CheXpertPlus** and skin lesions in **SLICE3D**. The results were striking—subgroups discovered directly from data revealed significantly larger performance gaps compared to traditional metadata-based groups. We invite you to personally explore these metadata and newly discovered subgroups in our visualization (**Hint: Don't miss subgroups 5 and 10!**).
 
     Notably, the discovered subgroups often didn't correspond closely with patient demographics. Instead, they consistently aligned with meaningful visual features, such as lesion size and color in skin images.
     """)
