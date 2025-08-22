@@ -1,0 +1,51 @@
+# Git and version control
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.venv
+.pytest_cache
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+README.md
+CLAUDE.md
+
+# Development files
+test_*.py
+prepare_assets*.py
+
+# Fly.io
+.fly
+
+# Large medical imaging data files (temporarily disabled for deployment)
+# static/
+# *.png
+# *.jpg
+# *.jpeg
+# *.csv

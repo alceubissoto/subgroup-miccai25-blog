@@ -4,6 +4,7 @@
 <head>
   <title>Subgroup Discovery Explorer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.3.2.min.js"></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -20,18 +21,47 @@
       box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     }
     .blog-content {
-      max-width: 800px;
+      max-width: 1400px;
       margin: 30px auto;
       padding: 40px;
       background: #ffffff;
       border-radius: 24px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
+    .visualization-container {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 16px;
+      border: 1px solid #e9ecef;
+    }
+    .viz-instructions {
+      background: linear-gradient(135deg, #e8f4fd, #f0f9ff);
+      border: 1px solid #0ea5e9;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      font-size: 0.95em;
+      color: #0c4a6e;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
+      position: relative;
+    }
+    .viz-instructions::before {
+      content: "💡";
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      font-size: 20px;
+    }
+    .viz-instructions strong {
+      color: #0369a1;
+      margin-left: 30px;
+    }
     .authors-bar {
       color: #555;
       font-size: 0.95em;
       margin-bottom: 24px;
-      text-align: center;
+      text-align: left;
     }
     .authors-bar sup {
       font-size: 0.75em;
@@ -40,21 +70,59 @@
       margin-bottom: 1.8em;
       font-size: 1em;
     }
-    h1, h3 {
+    h1, h2, h3 {
       color: #112A46;
-      text-align: center;
     }
     h1 {
-      font-size: 2em;
+      font-size: 2.2em;
       margin-bottom: 16px;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    h2 {
+      font-size: 1.5em;
+      margin-top: 35px;
+      margin-bottom: 20px;
+      color: #1e40af;
+      font-weight: 600;
+      position: relative;
+      padding-left: 35px;
+    }
+    h2:nth-of-type(1)::before {
+      content: "🎯";
+      position: absolute;
+      left: 0;
+      font-size: 24px;
+    }
+    h2:nth-of-type(2)::before {
+      content: "❓";
+      position: absolute;
+      left: 0;
+      font-size: 24px;
     }
     h3 {
-      margin-top: 40px;
-      margin-bottom: 16px;
+      margin-top: 50px;
+      margin-bottom: 20px;
       font-size: 1.4em;
-      border-bottom: 2px solid #e6e6e6;
+      border-bottom: 3px solid #667eea;
       display: inline-block;
-      padding-bottom: 6px;
+      padding-bottom: 8px;
+      font-weight: 600;
+      position: relative;
+    }
+    h3::after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 30%;
+      height: 3px;
+      background: #764ba2;
+      border-radius: 2px;
     }
     a.button-link {
       display: inline-block;
@@ -74,9 +142,22 @@
     @media (max-width: 768px) {
       .blog-content {
         padding: 20px;
+        max-width: 95%;
       }
       h1 {
         font-size: 1.6em;
+      }
+      .visualization-container {
+        padding: 15px;
+        margin: 20px 0;
+      }
+      .viz-instructions {
+        padding: 12px;
+        font-size: 0.85em;
+      }
+      /* Make Bokeh plots responsive on mobile */
+      .bk-root .bk-plotdiv {
+        width: 100% !important;
       }
     }
   </style>
@@ -99,15 +180,15 @@
   </span>
 </div>
 
-<h1> Does current AI evaluations capture the relevant characteristics in medical imaging?</h1>
+<h2> Does current AI evaluations capture the relevant characteristics in medical imaging?</h2>
 
 <p>Traditional subgroup analysis, a common practice in medical research, often falls short when evaluating deep learning models for medical imaging. The metadata typically used—like patient demographics or image characteristics—frequently fails to identify the nuanced variations that truly affect AI performance.</p>
 
 <h2>Why does this matter?</h2>
 
-<p>When assessing AI models, results are usually reported as averages across entire datasets. Although useful, this practice masks significant performance variations among specific groups. Clinical trials and medical AI studies often stratify results by demographic attributes like age, sex, or ethnicity, but these standard metadata categories rarely capture the subtle yet critical variations in medical images.</p>
+<p>When assessing AI models, results are usually reported as averages across entire datasets. Although useful, this practice masks significant performance variations among specific groups. Clinical trials and medical AI studies often stratify results by demographic attributes (e.g., age, sex, or ethnicity), but AI medical models might not rely on these standard metadata categories, leading to suboptimal performance evaluations.</p>
 
-<p>Our latest research introduces an innovative approach: subgroup discovery methods. These methods uncover hidden patterns and systematic groupings beyond traditional metadata, providing deeper and more meaningful insights into AI model performance.</p>
+<p>Our latest research studies an alternative approach: using subgroup discovery methods to enrich performance analysis. Subgroup discovery methods uncover hidden patterns and systematic groupings beyond traditional metadata, providing deeper and more meaningful insights into AI model performance.</p>
 
 
 <img src="{{ url_for('static', filename='demo_explanation.png') }}" class="image-block" alt="Explanation">
@@ -117,14 +198,18 @@
 
 <p>Engage directly with our <strong>interactive visualization</strong>. Select different patient attributes and discovered subgroups, calculate their specific AI model performance, and view illustrative examples. How do these subgroups perform compared to overall results? Can you pinpoint why certain groups perform differently—perhaps due to imaging artifacts, distinct visual features, or specific medical contexts?</p>
 
-<div class="guide-text">
-  Explore our interactive visualization by selecting patient attributes to define subgroups and examine specific model performances. How do these subgroups compare to overall performance? Can you identify why certain groups differ—due to artifacts, visual features, or medical context?
+<div class="visualization-container">
+  <div class="viz-instructions">
+    <strong>How to explore:</strong> Select different patient attributes from the "Attribute" dropdown (demographics, clinical conditions, or our discovered subgroups). 
+    Use "Filter" to focus on specific values, then click "Analyze Performance" to reveal performance metrics and view representative medical images from that subgroup.
+  </div>
+  {{ bokeh_script|safe }}
+  {{ bokeh_div|safe }}
 </div>
-{{ bokeh_script|safe }}
 
 <h3>Key Findings from Our Study</h3>
 
-<p>Our evaluation focused on two richly annotated medical imaging datasets: chest X-rays in <strong>CheXpertPlus</strong> and skin lesions in <strong>SLICE3D</strong>. The results were striking—subgroups discovered directly from data revealed significantly larger performance gaps compared to traditional metadata-based groups. We invite you to personally explore these metadata and newly discovered subgroups in our visualization (Hint: Don't miss subgroup 8!).</p>
+<p>Our evaluation focused on two richly annotated medical imaging datasets: chest X-rays in <strong>CheXpertPlus</strong> and skin lesions in <strong>SLICE3D</strong>. The results were striking—subgroups discovered directly from data revealed significantly larger performance gaps compared to traditional metadata-based groups. We invite you to personally explore these metadata and newly discovered subgroups in our visualization (Hint: Don't miss subgroups 5 and 10!).</p>
 
 <p>Notably, the discovered subgroups often didn’t correspond closely with patient demographics. Instead, they consistently aligned with meaningful visual features, such as lesion size and color in skin images.</p>
 

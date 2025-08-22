@@ -1,33 +1,27 @@
-from flask import Flask, render_template, url_for
-from threading import Thread
-from bokeh.server.server import Server
-from bokeh.embed import server_document
-from bokeh_app import modify_doc
+import os
+from flask import Flask, render_template
+from bokeh.embed import components
+from bokeh_app import create_plot
 
 # Create Flask app
 app = Flask(__name__)
 
-def bk_worker():
-    server = Server(
-        {'/bkapp': modify_doc},
-        port=5100,  # <---- use a free port here!
-        allow_websocket_origin=[
-            "localhost:9000",
-            "127.0.0.1:9000",
-            # "your.fly.io.app" (when deploying)
-        ]
-    )
-    server.start()
-    server.io_loop.start()
-
-# Start Bokeh server in the background (daemon thread)
-Thread(target=bk_worker, daemon=True).start()
+# Get environment settings
+FLASK_ENV = os.environ.get('FLASK_ENV', 'development')
+PORT = int(os.environ.get('PORT', 8080))
 
 @app.route('/')
 def index():
-    script = server_document('http://localhost:5100/bkapp')
-    return render_template('index.html', bokeh_script=script)
+    # Create the plot directly instead of using a server
+    plot = create_plot()
+    script, div = components(plot)
+    return render_template('index.html', bokeh_script=script, bokeh_div=div)
+
+@app.route('/health')
+def health():
+    return {'status': 'healthy'}, 200
 
 if __name__ == "__main__":
     # Use host 0.0.0.0 so it's visible inside Docker or on Fly.io
-    app.run(host="0.0.0.0", port=9000, debug=False, use_reloader=False)
+    debug_mode = FLASK_ENV == 'development'
+    app.run(host="0.0.0.0", port=FLASK_PORT, debug=debug_mode, use_reloader=False)
