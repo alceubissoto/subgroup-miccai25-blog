@@ -92,7 +92,7 @@ def load_data():
             if col in df.columns:
                 df[col] = df[col].fillna(0)
         
-        st.sidebar.success(f"📊 Data loaded: {len(df):,} samples")
+        # Data loaded successfully
         
         return df, available_images
         
@@ -475,10 +475,12 @@ def main():
         st.stop()
     
     
-    # Smaller sidebar controls
-    with st.sidebar:
-        st.header("Controls")
-        
+    # Controls above the plot
+    st.subheader("🎛️ Controls")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
         # Attribute selection - dynamically build from available columns
         attribute_options = {}
         
@@ -507,7 +509,8 @@ def main():
             options=list(attribute_options.keys()),
             index=min(6, len(attribute_options)-1) if len(attribute_options) > 6 else 0
         )
-        
+    
+    with col2:
         attr_column = attribute_options[selected_attr]
         
         # Value filter
