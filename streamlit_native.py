@@ -93,10 +93,10 @@ def load_data():
                 df[col] = df[col].fillna(0)
         
         # Map clinical attribute values to readable labels
-        clinical_mapping = {-1: 'absent', 0: 'unspecified', 1: 'present'}
+        clinical_mapping = {-1: 'Absent', 0: 'Unspecified', 1: 'Present'}
         for col in ['Support Devices', 'Lung Lesion']:
             if col in df.columns:
-                df[col] = df[col].map(clinical_mapping).fillna('unspecified')
+                df[col] = df[col].map(clinical_mapping).fillna('Unspecified')
         
         # Data loaded successfully
         
@@ -465,23 +465,14 @@ def main():
     # Interactive section
     st.header("🔬 Interactive Exploration: Unveiling Hidden Patterns")
     
-    st.markdown("""
-    <div class="instructions">
-        <strong>💡 How to explore:</strong> We are investigating a model trained for **cardiomegaly detection** on chest X-rays. 
-        Use the controls below to select different patient attributes (demographics, clinical conditions, or discovered subgroups). 
-        Filter by specific values to reveal performance metrics and view representative medical images from that subgroup.
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Load data
+    # Load data first
     df, available_images = load_data()
     
     if df.empty:
         st.error("Could not load data. Please check that the data files exist in the static/ directory.")
         st.stop()
     
-    
-    # Controls placed right before the visualization
+    # Controls right after the title
     col1, col2 = st.columns(2)
     
     with col1:
@@ -526,6 +517,14 @@ def main():
         )
         
         # Auto-trigger analysis when values change (no button needed)
+    
+    st.markdown("""
+    <div class="instructions">
+        <strong>💡 How to explore:</strong> We are investigating a model trained for **cardiomegaly detection** on chest X-rays. 
+        Use the controls above to select different patient attributes (demographics, clinical conditions, or discovered subgroups). 
+        Filter by specific values to reveal performance metrics and view representative medical images from that subgroup.
+    </div>
+    """, unsafe_allow_html=True)
 
     # Tips for exploration (moved closer to plot)
     with st.expander("💡 Tips for Exploration"):
