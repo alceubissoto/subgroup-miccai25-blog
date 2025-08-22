@@ -92,6 +92,12 @@ def load_data():
             if col in df.columns:
                 df[col] = df[col].fillna(0)
         
+        # Map clinical attribute values to readable labels
+        clinical_mapping = {-1: 'absent', 0: 'unspecified', 1: 'present'}
+        for col in ['Support Devices', 'Lung Lesion']:
+            if col in df.columns:
+                df[col] = df[col].map(clinical_mapping).fillna('unspecified')
+        
         # Data loaded successfully
         
         return df, available_images
@@ -462,8 +468,8 @@ def main():
     st.markdown("""
     <div class="instructions">
         <strong>💡 How to explore:</strong> We are investigating a model trained for **cardiomegaly detection** on chest X-rays. 
-        Select different patient attributes from the sidebar (demographics, clinical conditions, or discovered subgroups). 
-        Use the filter to focus on specific values to reveal performance metrics and view representative medical images from that subgroup.
+        Use the controls below to select different patient attributes (demographics, clinical conditions, or discovered subgroups). 
+        Filter by specific values to reveal performance metrics and view representative medical images from that subgroup.
     </div>
     """, unsafe_allow_html=True)
     
@@ -475,9 +481,7 @@ def main():
         st.stop()
     
     
-    # Controls above the plot
-    st.subheader("🎛️ Controls")
-    
+    # Controls placed right before the visualization
     col1, col2 = st.columns(2)
     
     with col1:
