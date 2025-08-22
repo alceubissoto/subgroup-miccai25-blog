@@ -401,7 +401,7 @@ def display_sample_images(df, filter_col, filter_val, available_images, max_imag
                         y_offset = (180 - img.height) // 2
                         square_img.paste(img, (x_offset, y_offset))
                         
-                        st.image(square_img, use_column_width=True)
+                        st.image(square_img, use_container_width=True)
                     except Exception:
                         pass
                         
