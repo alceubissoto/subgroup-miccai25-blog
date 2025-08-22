@@ -465,14 +465,38 @@ def main():
     # Interactive section
     st.header("🔬 Interactive Exploration: Unveiling Hidden Patterns")
     
+    st.markdown("""
+    <div class="instructions">
+        <strong>💡 How to explore:</strong> We are investigating a model trained for **cardiomegaly detection** on chest X-rays. 
+        Use the controls below to select different patient attributes (demographics, clinical conditions, or discovered subgroups). 
+        Filter by specific values to reveal performance metrics and view representative medical images from that subgroup.
+    </div>
+    """, unsafe_allow_html=True)
+    
     # Load data first
     df, available_images = load_data()
     
     if df.empty:
         st.error("Could not load data. Please check that the data files exist in the static/ directory.")
         st.stop()
+
+    # Tips for exploration (moved closer to plot)
+    with st.expander("💡 Tips for Exploration"):
+        st.markdown("""
+        **Try these explorations:**
+        - **Discovered Subgroups**: Explore subgroups 0-14, especially subgroups 5 and 10 which show interesting patterns
+        - **Demographics**: Compare performance across different sex and race categories
+        - **Clinical attributes**: Check how Support Devices and Lung Lesion affect performance
+        - **View types**: Compare frontal vs lateral X-ray performance
+        
+        **What to look for:**
+        - Performance gaps between subgroups
+        - Clustering patterns in the t-SNE plot
+        - Representative images that show visual differences
+        - How discovered subgroups differ from demographic groupings
+        """)
     
-    # Controls right after the title
+    # Controls right before the visualization
     col1, col2 = st.columns(2)
     
     with col1:
@@ -517,30 +541,6 @@ def main():
         )
         
         # Auto-trigger analysis when values change (no button needed)
-    
-    st.markdown("""
-    <div class="instructions">
-        <strong>💡 How to explore:</strong> We are investigating a model trained for **cardiomegaly detection** on chest X-rays. 
-        Use the controls above to select different patient attributes (demographics, clinical conditions, or discovered subgroups). 
-        Filter by specific values to reveal performance metrics and view representative medical images from that subgroup.
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Tips for exploration (moved closer to plot)
-    with st.expander("💡 Tips for Exploration"):
-        st.markdown("""
-        **Try these explorations:**
-        - **Discovered Subgroups**: Explore subgroups 0-14, especially subgroups 5 and 10 which show interesting patterns
-        - **Demographics**: Compare performance across different sex and race categories
-        - **Clinical attributes**: Check how Support Devices and Lung Lesion affect performance
-        - **View types**: Compare frontal vs lateral X-ray performance
-        
-        **What to look for:**
-        - Performance gaps between subgroups
-        - Clustering patterns in the t-SNE plot
-        - Representative images that show visual differences
-        - How discovered subgroups differ from demographic groupings
-        """)
     
     # Interactive analysis - auto-triggered
     st.subheader("📊 Interactive Analysis")
