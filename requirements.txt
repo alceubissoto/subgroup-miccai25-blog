@@ -1,6 +1,6 @@
-bokeh==3.2.1
-panel==1.2.3
+streamlit
+plotly
 pandas
 numpy
 scikit-learn
-pillow
+Pillow
