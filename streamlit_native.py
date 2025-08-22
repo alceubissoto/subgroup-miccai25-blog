@@ -496,7 +496,10 @@ def main():
         - How discovered subgroups differ from demographic groupings
         """)
     
-    # Controls right before the visualization
+    # Interactive analysis - auto-triggered
+    st.subheader("📊 Interactive Analysis")
+    
+    # Controls right after the Interactive Analysis subtitle
     col1, col2 = st.columns(2)
     
     with col1:
@@ -541,9 +544,6 @@ def main():
         )
         
         # Auto-trigger analysis when values change (no button needed)
-    
-    # Interactive analysis - auto-triggered
-    st.subheader("📊 Interactive Analysis")
     
     # Calculate both overall and subgroup performance automatically
     overall_acc, overall_bal_acc, overall_count = calculate_performance(df, attr_column, "All")
